@@ -90,8 +90,11 @@ The placeserv holds all the state and takes care of all the logic. It is the web
 I'd love to support different visors: VR, AR desktop 3D and touch. For now,
 the focus is on the VR visor in Unity.
 
-`alloverse-place://(https endpoint)...` URLs can be opened to make a visor
+`alloverse-place://(enet endpoint)...` URLs can be opened to make a visor
 open a place ([when that's implemented](https://github.com/alloverse/allovisor/issues/1)).
+
+When webrtc is implemented, that enet endpoint should be replaced with a https
+endpoint that takes a `POST` of the SDP for an `OFFER`, and responds with the `ANSWER`.
 
 A visor should provide some sort of client identity. The idea for now is for
 each client to provide a public certificate with a name bound to it, so you
