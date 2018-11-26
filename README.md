@@ -1,6 +1,6 @@
 # Alloverse
 
-_By Nevyn Bengtsson (nevyn.jpg@gmail.com), started 2018-08-25._
+_By Nevyn Bengtsson (nevyn@alloverse.com), started 2018-08-25._
 
 Alloverse is an open platform for collaborative workspaces in 3D.
 It’s Gibson style Cyberspace, but for your day-to-day work and play, with your friends and colleagues. It’s a VR and AR platform for creating spaces, and for running real applications within those spaces, together with other people. 
@@ -30,6 +30,8 @@ it's MY hobby project and ME is an idiot.
 
 ## Continued reading
 
+* See [CONTRIBUTING][contributing.md] for development getting-started,
+  and guidelines for contribution.
 * See the [public website](https://alloverse.com) for news, installation
   instructions, etc.
 * See [architecture](architecture) for overview of how things fit together.
