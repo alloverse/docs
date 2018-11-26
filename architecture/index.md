@@ -2,6 +2,18 @@
 
 ## Basic premises
 
+* Your "place" is where you decorate, run apps, invite people, and
+  hang out. It's like a collaborative X11 server: It runs a world simulation
+  server, a voip gateway, and all the backing data for 3d UIs for
+  the running apps.
+* A "visor" is the GUI application you use to visit places and interact
+  with your apps.
+* An "appliance" is a process running on your computer, or on a computer
+  on the Internet. Like opening a web page (or launching a remote X11
+  process), this app can then show its interface and be interacted with
+  inside your place. 
+
+
 A place, a user/visor and appliances are all actors using the same network
 protocol and RPC mechanics, implemented in the `allonet` library.
 

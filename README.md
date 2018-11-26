@@ -22,7 +22,7 @@ In nerd terms, it's a VR/AR/3D "window manager" and collaborative workspace.
   process), this app can then show its interface and be interacted with
   inside your place. 
 * The network and "UI protocol" is abstracted into the 
-  [`allonet`](https://github.com/alloverse/allovisor) library,
+  [`allonet`](https://github.com/alloverse/allonet) library,
   written in C and used by all the above projects.
 
 I'm writing all this from scratch in my barely-available spare time because
