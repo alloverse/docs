@@ -36,5 +36,5 @@ it's MY hobby project and ME is an idiot.
   instructions, etc.
 * See [architecture](architecture) for overview of how things fit together.
 * See [specifications](specifications) for protocol references.
-* See [ux](ux) for user experience design principles and interaction patterns
+* See [3D Human Interface Guidelines](3dhig) for user experience design principles and interaction patterns
   in the Alloverse.
