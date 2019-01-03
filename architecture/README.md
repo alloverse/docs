@@ -1,5 +1,8 @@
 # Alloverse architecture
 
+This document explains the various concepts. For exact protocol specifications,
+see [specifications](../specifications).
+
 ## Basic premises
 
 * Your "place" is where you decorate, run apps, invite people, and
@@ -90,7 +93,7 @@ The placeserv holds all the state and takes care of all the logic. It is the web
 I'd love to support different visors: VR, AR desktop 3D and touch. For now,
 the focus is on the VR visor in Unity.
 
-`alloverse-place://(enet endpoint)...` URLs can be opened to make a visor
+`alloplace://(enet endpoint)...` URLs can be opened to make a visor
 open a place ([when that's implemented](https://github.com/alloverse/allovisor/issues/1)).
 
 When webrtc is implemented, that enet endpoint should be replaced with a https
@@ -115,7 +118,7 @@ to provide the [UX and UI interactions that Alloverse standardizes on](../ux),
 providing an intuitive and uniform experience across appliances without every
 application developer having to think of their own interaction patterns.
 
-If a user opens an `alloappliance+http(s)://...`, it should be opened by the visor.
+If a user opens an `alloapp+http(s)://...`, it should be opened by the visor.
 The visor should then send an interaction to the placeserv, asking it to spawn the
 given appliance.
 
@@ -123,15 +126,21 @@ The placeserv should then make the http(s) call to the given URL with a
 connection instruction json blob:
 
     { 
-      "url": "alloplace://hostname:port",
+      "spawnInPlace": "alloplace://hostname:port",
       "onBehalfOf": (client identity),
-      "query": (query params as-is from the alloappliance url) 
+      "query": (query params as-is from the alloapp url) 
     }.
 
 The http server receiving this request should then spawn a process for this
-agent and have it connect to the given room. See [the implementation task
-for opening appliances with
+agent and have it connect to the `spawnInPlace` URL. See [the implementation
+task for opening appliances with 
 URLs](https://github.com/alloverse/allo-placeserv/issues/8).
+
+The plan is to provide a generic "alloapp gateway" node script that responds to
+requests like the one above which can be easily configured to spawn a process
+like the above, so that all an app developer needs to implement is a process that
+takes a place URL in ENV (or the whole json as above), and then asks the allonet
+API to connect to that URL.
 
 ## Assets
 
