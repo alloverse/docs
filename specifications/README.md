@@ -8,12 +8,12 @@ as it explains how all these components fit together.
 An agent is code that can spawn entities, and communicates to a place
 on behalf of the entities it owns. Thus, all these are agents:
 
-* The place itself (referenced in requests with a null/empty string entity id)
+* The place itself (referenced in requests with "place" magic entity id)
 * any visor (represented as the allonet connection to the place)
 * any app (also represented as its allonet connection)
 
 Every connected agent has to spawn its "avatar" entity as part of its `ANNOUNCE`
-message, so that it has a representation in a room and can be communicated with
+message, so that it has a representation in a place and can be communicated with
 (or terminated, in the case of apps).
 
 When an agent disconnects from a place, all its entities are removed from the
@@ -98,13 +98,13 @@ Sent from agent to place over unreliable channel every heartbeat.
 ```
 {
     "intents": {
-        "entityId1 (avatar)": {
+        "{entity id of avatar}": {
             "zmovement": 1, // movement "into the screen", meters per sec
             "xmovement": 0, // left/right movement
             "yaw": 0, // radians of absolute yaw rotation
             "pitch": 0 // radians of absolute pitch rotation
         },
-        "id of other owned entity": {
+        "{id of other owned entity}": {
             // same as above
         }
     },
@@ -119,7 +119,17 @@ Sent from agent to place over unreliable channel every heartbeat.
 Sent from agent, to place, then forwarded to the designated agent,
 over the reliable channel on demand.
 
-JSON TBD
+```
+  [
+    "interaction",
+    "{request|response|oneway}"
+    "{source entity ID}",
+    "{destination entity ID or emptystring if broadcast or response}",
+    "{request ID or empty string if single-way}",
+    // interaction body goes here
+  ]
+
+```
 
 
 ## Place to agent state update
@@ -129,13 +139,44 @@ know what the world looks like. In v1, the full place state
 is sent every heartbeat.
 In v2, a diff from the previously acknowledged state will be sent.
 
-JSON TBD
+```
+  entities: [
+    // list of all entities; see Entities above for structure
+  ],
+  revision: 1234 // monotonically increasing integer (will roll over to 0 after INT64_MAX!)
+```
 
 # Official interactions
 
 ## Agent announce
 
+After an agent connects, before it can interact with the place
+it must announce itself and spawn its avatar entity. Failure to
+announce will lead to force disconnect.
+
+An interaction should be sent to "place" with the following body:
+
+```
+[
+  "announce",
+  ["identity", {
+    // identity body goes here
+  }],
+  ["spawn_avatar", {
+    // list of for avatar goes here
+  }]
+```
+
+response:
+
+```
+[
+  "announce"
+```
+
 ## Agent requests to spawn entity
+
+## Agent requests to change/add/remove component(s) in entity
 
 ## Entity points
 

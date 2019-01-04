@@ -52,7 +52,7 @@ appliances and visors to invent their own components and interactions.
 ## Interactions and access control
 
 Interactions are the way entities can communicate, including how the visor
-talks to the room itself (by setting the destination to NULL/emptystring).
+talks to the place itself (by sending to entity id "place").
 It's a json list for now, and the idea is for it to be a pub-sub
 request-response protocol vaguley inspired by [Peter J Robinson et al's
 Pedro protocol](http://www.doc.ic.ac.uk/~klc/pedro.pdf).
@@ -84,7 +84,7 @@ The placeserv holds all the state and takes care of all the logic. It is the web
 * pulses diffs to any actors that want it (primarily visors),
 * is RPC router between actors (place, visors and apps), including app<>app
 * does ACL permission checks on all RPC
-* simulates the physical bodies in the room
+* simulates the physical bodies in the place
 * Manages at least one physical+visual body for each actor,
 * Allows actors to create additional entities
 
