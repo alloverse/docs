@@ -90,7 +90,7 @@ the requesting entity's agent, and handled by the receiving
 entity's agent).
 
 Alloverse defines **a set of
-[official interactions](interactioins.md)**. App developers 
+[official interactions](interactions.md)**. App developers 
 are free to invent their own interactions, which is useful for
 app-to-app communication (though a standard Visor will
 not be able to interpret them).
