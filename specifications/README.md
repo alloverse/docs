@@ -122,15 +122,99 @@ over the reliable channel on demand.
 ```
   [
     "interaction",
-    "{request|response|oneway}"
+    "{request|response|publication}"
     "{source entity ID}",
-    "{destination entity ID or emptystring if broadcast or response}",
+    "{destination entity ID or emptystring if publication}",
     "{request ID or empty string if single-way}",
     // interaction body goes here
   ]
-
 ```
 
+The agent sending the request must own the source entity.
+
+### Requests and responses
+
+If the second field is set to "request" and a request ID is set,
+the recipient can respond to the interaction by setting "response"
+and filling in the same request ID, and the placeserv will route
+the message correctly.
+
+A response must be sent to the entity that sent the request. Sending
+a response to a an entity that didn't request it may lead to 
+force disconnection.
+
+The client sets its own request IDs. These must be unique for
+each request this session for this agent. An UUID or monotonically
+increasing integer as string should do.
+
+### Publication and subscription
+
+If the second field is "publication" and no destination entity is
+filled in, it's a publication that anyone can subscribe to. This is
+useful for apps to broadcast information that is instantaneous
+rather than a property of an entity (in which case it would have been
+a property of a component of an entity).
+
+Agents can subscribe to publications by providing a "match pattern"
+which is an Elixir guard expression. This lets agents set
+very fine grained subscriptions to exactly what interactions it
+wants to receive.
+
+If nobody is subscribing to a matching pattern of the given
+publication, the message is filtered out by the placeserv.
+
+Behavior is undefined if you provide a request id in a publication.
+Future versions may allow publications to have responses.
+
+### Access control
+
+Access control is defined on the interaction level. The placeserv
+can be fed with Elixir guard expressions the same way that
+subscriptions work, and an "allow" or "deny" flag,
+which then becomes the "Access Control List" (ACL) for interactions
+in the place.
+
+Since announce is an interaction, an interaction ACL can be used
+to allow/deny agents from joining a place. Likewise, since changing
+the ACL is also an interaction, you can use an ACL to control who
+may modify the ACL. In other words, anything except intents and
+place state updates can be filtered using interaction ACLs.
+
+Interaction ACLs guard on the entire interaction message,
+and not just the payload body. So for example, the following
+rule would disallow users named "harry" from joining a room:
+
+```
+[
+  "deny",
+  """[
+    "interaction", // match exactly on provided value for first field
+    "request",
+    SourceEntity,  // bare words become variables
+    "place",
+    _,             // underscore means unused variable = ignored value
+    [
+      "announce",
+      ["identity", Identity],
+      _
+    ]
+  ] where Identity["name"] == "harry" """
+]
+```
+
+Note that the rule itself is an Elixir string, not a JSON
+expression.
+
+If an interaction is sent by an agent but is disallowed by an ACL
+rule, the following message is sent in response:
+
+```
+[
+  "interaction_denied",
+  // original interaction goes here,
+  // rule that caused denial goes here
+]
+```
 
 ## Place to agent state update
 
@@ -163,26 +247,144 @@ An interaction should be sent to "place" with the following body:
     // identity body goes here
   }],
   ["spawn_avatar", {
-    // list of for avatar goes here
+    // list of initial values for components for avatar entity goes here
   }]
 ```
 
-response:
+Response:
 
 ```
 [
   "announce"
+  "{ID of avatar entity}"
+]
 ```
 
 ## Agent requests to spawn entity
 
+```
+[
+  "spawn_entity",
+  {
+    // list of initial values for components for avatar entity goes here
+  }
+]
+```
+
+Response:
+
+```
+[
+  "spawn_entity",
+  "{ID of entity if spawned}"
+]
+```
+
+
 ## Agent requests to change/add/remove component(s) in entity
+
+
+```
+[
+  "change_components",
+  "{entity ID}",
+  "add_or_change",
+  {
+    // object with new values for components (regardless of if
+    // component already exists on entity)
+  }
+  "remove",
+  [
+    // keys of components to remove
+  ]
+]
+```
+
+Response:
+
+```
+[
+  "change_components",
+  "ok"
+]
+```
+
+A default ACL rule is set so that you must own the entity
+whose component you're changing, but this rule can be changed.
+
+## Subscribe/unsubscribe
+
+Subscribe:
+
+```
+[
+  "subscribe",
+  """{guard pattern}"""
+]
+```
+
+Response:
+
+```
+[
+  "subscribe",
+  "{subscription ID}"
+]
+```
+
+Unsubscribe:
+
+```
+[
+  "unsubscribe",
+  "{subscription ID}"
+]
+```
+
+Response:
+
+```
+[
+  "unsubscribe",
+  "{'ok'|'not_subscribed'}"
+]
+```
+
+Example:
+
+```
+  [
+    "interaction",
+    "request",
+    "1234",
+    "place", // place is the subscription gateway
+    "567",
+    [
+      "subscribe",
+      """[
+        "new_tweet",
+        TweetSender,
+        TweetBody
+      ] where TweetSender == "nevyn" """
+    ] 
+```
+
+In this scenario the place contains an app that publishes new tweets
+as interactions to the room. This interaction will ask the place to
+subscribe to all interaction publications which start with the
+word "new_tweet" followed by two fields. The guard clause asks that
+the sender must be "nevyn". If the guard matches, the publication
+interaction will be forwarded by the place from the sending agent
+to the subscribing agent.
+
+## Modify ACL
 
 ## Entity points
 
 ## Entity pokes
 
-# http endpoints
+
+# HTTP Endpoints
 
 ## Alloapp Gateway
 
