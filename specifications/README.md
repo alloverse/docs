@@ -105,10 +105,10 @@ Sent from agent to place over unreliable channel every heartbeat.
 {
     "intents": {
         "{entity id of avatar}": {
-            "zmovement": 1, // movement "into the screen", meters per sec
-            "xmovement": 0, // left/right movement
-            "yaw": 0, // radians of absolute yaw rotation
-            "pitch": 0 // radians of absolute pitch rotation
+            "zmovement": 1, // 1 = maximum speed forwards
+            "xmovement": 0, // 1 = maximum speed strafe right
+            "yaw": 0, // absolute rotation around x in radians
+            "pitch": 0 // absolute rotation around y in radians
         },
         "{id of other owned entity}": {
             // same as above
