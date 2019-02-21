@@ -30,8 +30,8 @@ it's MY hobby project and ME is an idiot.
 
 ## Continued reading
 
-* See [CONTRIBUTING](CONTRIBUTING.md) for development getting-started,
-  and guidelines for contribution.
+* See [GETTING_STARTED](GETTING_STARTED.md) for how to start developing on
+  the various components.
 * See the [public website](https://alloverse.com) for news, installation
   instructions, etc.
 * See [architecture](architecture) for overview of how things fit together.
