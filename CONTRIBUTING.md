@@ -1,44 +1,5 @@
 # Contributing to Alloverse
 
-## Development environment
-
-### Allo-placeserv
-
-In my work to write a shared network layer, I wrote a dummy server inside
-`allonet`. Until the Elixir `placeserv` is migrated to use `allonet`, please
-build all targets in `allonet` and then invoke:
-
-    ./build/allodummyserv
-
-This will give you an extremely rudimentary placeserv on localhost:21337
-
-### Allonet
-
-Allonet is written in C and CMake. I recommend using Visual Studio Code,
-and installing the "CMake-Tools" package to build and run from the GUI.
-
-You can then either run `./build/allodummyclient` to try things out.
-If you want to try it in the real Allovisor, copy `liballonet.dylib` into
-the Unity project's assets, something like this:
-
-    cp build/liballonet.dylib ../allovisor/Assets/liballonet.bundle
-
-Eventually I'll replace this with CI and a build-time curl job, but not now...
-
-A huge bummer is that I happened to depend on a library that doesn't compile
-on Windows, so the whole thing will only run on Unix-based systems such as
-Mac, Linux and Android at the moment :S Sorry about that.
-
-### Allovisor
-
-Allovisor should build in Unity out of the box. The bundled `liballonet.bundle`
-is Mac-only, so if you want to develop on another platform, you have to compile
-and copy in the appropriate `allonet` binary into the Assets folder.
-
-### Appliances
-
-See the [appliance dev guide](writing-apps).
-
 ## Contributor Covenant Code of Conduct
 
 ### Our Pledge
