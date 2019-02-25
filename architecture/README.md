@@ -57,9 +57,9 @@ It's a json list for now, and the idea is for it to be a pub-sub
 request-response protocol vaguley inspired by [Peter J Robinson et al's
 Pedro protocol](http://www.doc.ic.ac.uk/~klc/pedro.pdf).
 
-The placeserv becomes the Pedro gateway, and can thus manage access control lists,
+The alloplace server becomes the Pedro gateway, and can thus manage access control lists,
 defined as guard expressions on the expression itself, the sender and the receiver.
-See [the implementation task](https://github.com/alloverse/allo-placeserv/issues/2)
+See [the implementation task](https://github.com/alloverse/alloplace/issues/2)
 for more information.
 
 These ACLs can then control everything needed:
@@ -76,9 +76,9 @@ bullet list above makes it seem...
 
 ## The three components
 
-### Placeserv
+### Alloplace
 
-The placeserv holds all the state and takes care of all the logic. It is the webrtc hub (eventually) and RPC comms hub. It
+The alloplace server holds all the state and takes care of all the logic. It is the webrtc hub (eventually) and RPC comms hub. It
 
 * runs a game loop, with physics simulation, intent interpretation, etc.
 * pulses diffs to any actors that want it (primarily visors),
@@ -119,10 +119,10 @@ providing an intuitive and uniform experience across appliances without every
 application developer having to think of their own interaction patterns.
 
 If a user opens an `alloapp+http(s)://...`, it should be opened by the visor.
-The visor should then send an interaction to the placeserv, asking it to spawn the
-given appliance.
+The visor should then send an interaction to the alloplace server, asking it
+to spawn the given appliance.
 
-The placeserv should then make the http(s) call to the given URL with a
+The alloplace server should then make the http(s) call to the given URL with a
 connection instruction json blob:
 
     { 
@@ -134,7 +134,7 @@ connection instruction json blob:
 The http server receiving this request should then spawn a process for this
 agent and have it connect to the `spawnInPlace` URL. See [the implementation
 task for opening appliances with 
-URLs](https://github.com/alloverse/allo-placeserv/issues/8).
+URLs](https://github.com/alloverse/alloplace/issues/8).
 
 The plan is to provide a generic "alloapp gateway" node script that responds to
 requests like the one above which can be easily configured to spawn a process
@@ -151,13 +151,13 @@ Entities should have components representing assets such as:
 * animations
 * static sounds
 
-They should reference these assets by sha1 hash. When a placeserv sees a new
+They should reference these assets by sha1 hash. When a alloplace server sees a new
 hash in the description of an entity coming from an agent, it should ask that
 agent for that asset hash over the asset channel. The agent should then stream
 the asset to the server for caching and redelivery.
 
 When another agent then sees the references to the assets, it can thus then
-ask the placeserv for the corresponding asset, so that it can then later display
+ask the alloplace for the corresponding asset, so that it can then later display
 it.
 
 Dynamic textures and audio will later be represented as webrtc streams, and thus

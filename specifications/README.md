@@ -142,7 +142,7 @@ The agent sending the request must own the source entity.
 
 If the second field is set to "request" and a request ID is set,
 the recipient can respond to the interaction by setting "response"
-and filling in the same request ID, and the placeserv will route
+and filling in the same request ID, and the alloplace server will route
 the message correctly.
 
 A response must be sent to the entity that sent the request. Sending
@@ -167,14 +167,14 @@ very fine grained subscriptions to exactly what interactions it
 wants to receive.
 
 If nobody is subscribing to a matching pattern of the given
-publication, the message is filtered out by the placeserv.
+publication, the message is filtered out by the alloplace server.
 
 Behavior is undefined if you provide a request id in a publication.
 Future versions may allow publications to have responses.
 
 ### Access control
 
-Access control is defined on the interaction level. The placeserv
+Access control is defined on the interaction level. The alloplace server
 can be fed with Elixir guard expressions the same way that
 subscriptions work, and an "allow" or "deny" flag,
 which then becomes the "Access Control List" (ACL) for interactions
@@ -239,14 +239,14 @@ In v2, a diff from the previously acknowledged state will be sent.
 # Official components
 
 Please see the [list of official components](components.md) in
-a separate document. These are defined by placeserv,
+a separate document. These are defined by alloplace,
 and define how an agent and entity interact with a place.
 
 
 # Official interactions
 
 Please see the [list of official interactions](interactions.md) in
-a separate document. These are defined by placeserv,
+a separate document. These are defined by alloplace,
 and define how an agent and entity interact with a place.
 
 # HTTP Endpoints

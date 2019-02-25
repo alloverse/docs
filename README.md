@@ -13,7 +13,7 @@ In nerd terms, it's a VR/AR/3D "window manager" and collaborative workspace.
   hang out. It's like a collaborative X11 server: It runs a world simulation
   server, a voip gateway, and all the backing data for 3d UIs for
   the running apps. The reference Elixir implementation is in 
-  [`allo-placeserv`](https://github.com/alloverse/allo-placeserv).
+  [`alloplace`](https://github.com/alloverse/alloplace).
 * A "visor" is the GUI application you use to visit places and interact
   with your apps. [`allovisor`](https://github.com/alloverse/allovisor)
   implements such a visor for VR in Unity.
