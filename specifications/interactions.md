@@ -17,12 +17,15 @@ An interaction should be sent to "place" with the following body:
 ```
 [
   "announce",
-  ["identity", {
+  "identity",
+  {
     // identity body goes here
-  }],
-  ["spawn_avatar", {
+  },
+  "spawn_avatar",
+  {
     // list of initial values for components for avatar entity goes here
-  }]
+  }
+]
 ```
 
 Response:
