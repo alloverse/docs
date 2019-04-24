@@ -17,6 +17,8 @@ An interaction should be sent to "place" with the following body:
 ```
 [
   "announce",
+  "version",
+  1,
   "identity",
   {
     // identity body goes here
