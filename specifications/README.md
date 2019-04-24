@@ -3,6 +3,10 @@
 Please begin by reading the [architecture documentation](../architecture),
 as it explains how all these components fit together.
 
+To see how these messages actually sent over the network, see
+[Wire protocol](wire-protocol.md). This document also specifies the differences
+between the specification and the current implementation.
+
 ## Agent
 
 An agent is code that can spawn entities, and communicates to a place
