@@ -16,3 +16,21 @@ Defines the physical location of the entity.
   "rotation":	[0, 0, 0]
 }
 ```
+
+## `geometry`
+
+Defines the visual geometry of an entity
+
+```
+"geometry": {
+  "type": "tristrip",
+  "data": [1.0, 2.0, 3.0, 4.0, 5.0]
+}
+```
+
+```
+"geometry": {
+  "type": "hardcoded-model",
+  "name": "cubegal"
+}
+```
