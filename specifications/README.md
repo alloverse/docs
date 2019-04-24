@@ -236,7 +236,7 @@ In v2, a diff from the previously acknowledged state will be sent.
   revision: 1234 // monotonically increasing integer (will roll over to 0 after INT64_MAX!)
 ```
 
-See [#entity](Entity) for definition of the entries of the `entities` list.
+See [Entity](#entity) for definition of the entries of the `entities` list.
 
 # Official components
 
