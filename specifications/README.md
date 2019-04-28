@@ -132,7 +132,7 @@ over the reliable channel on demand.
 ```
   [
     "interaction",
-    "{request|response|publication}"
+    "{oneway|request|response|publication}"
     "{source entity ID}",
     "{destination entity ID or emptystring if publication}",
     "{request ID or empty string if single-way}",
@@ -175,6 +175,11 @@ publication, the message is filtered out by the alloplace server.
 
 Behavior is undefined if you provide a request id in a publication.
 Future versions may allow publications to have responses.
+
+### Oneway
+
+The message is directed to a single entity/client, and you can't respond
+to it. `request_id` should be empty.
 
 ### Access control
 
