@@ -6,18 +6,24 @@ This is an Elixir process that acts very similarly to a dedicated game server.
 You run it, and it acts as a container/world simulator for all users
 and apps that connect to it.
 
-See the [setup instructions in alloplace's README](https://github.com/alloverse/alloplace#setup)
+There is an always-on development server at [alloplace://nevyn.places.alloverse.com](alloplace://nevyn.places.alloverse.com).
+You can use it to try out your code so you don't have to run a server locally if all
+you're interested in is client development.
+
+If you DO want to do server development, see the 
+[setup instructions in alloplace's README](https://github.com/alloverse/alloplace#setup)
 for setup and run instructions.
 
-Once it's running, you have a server on [alloplace://localhost:21337](alloplace://localhost:21337)!
+Once it's running, you have a server on [alloplace://localhost](alloplace://localhost)!
 
 ### Allovisor client
 
 This is the "game client" that connects to the alloplace server.
 
-Allovisor should build in Unity out of the box. The bundled `liballonet.bundle`
-is Mac-only, so if you want to develop on another platform, you have to compile
-and copy in the appropriate `allonet` binary into the Assets folder.
+[See its build instructions in its README](https://github.com/alloverse/allovisor#compiling-and-developing-allovisor)
+
+It uses CI integration to get the latest version of "allonet", the network library used to
+talk to the Alloverse. It's all in the README how you set that up.
 
 ### Appliances
 
@@ -39,5 +45,3 @@ If you want to try it in the real Allovisor, copy `liballonet.dylib` into
 the Unity project's assets, something like this:
 
     cp build/liballonet.dylib ../allovisor/Assets/liballonet.bundle
-
-Eventually I'll replace this with CI and a build-time curl job, but not now...
