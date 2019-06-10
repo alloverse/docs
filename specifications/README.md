@@ -33,7 +33,7 @@ Identity is currently expressed as the following JSON blob:
 
 ```
 {
-    "displayName": "annie"
+    "display_name": "annie"
 }
 ```
 
