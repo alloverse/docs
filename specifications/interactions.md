@@ -12,7 +12,9 @@ After an agent connects, before it can interact with the place
 it must announce itself and spawn its avatar entity. Failure to
 announce will lead to force disconnect.
 
-An interaction should be sent to "place" with the following body:
+* Receiver: `place`
+* Type: `request`
+* Request body:
 
 ```
 [
@@ -30,7 +32,7 @@ An interaction should be sent to "place" with the following body:
 ]
 ```
 
-Response:
+* Response:
 
 ```
 [
@@ -41,6 +43,10 @@ Response:
 
 ## Agent requests to spawn entity
 
+* Receiver: `place`
+* Type: `request`
+* Request body:
+
 ```
 [
   "spawn_entity",
@@ -50,7 +56,7 @@ Response:
 ]
 ```
 
-Response:
+* Response:
 
 ```
 [
@@ -62,6 +68,9 @@ Response:
 
 ## Agent requests to change/add/remove component(s) in entity
 
+* Receiver: `place`
+* Type: `request`
+* Request body:
 
 ```
 [
@@ -93,7 +102,9 @@ whose component you're changing, but this rule can be changed.
 
 ## Subscribe/unsubscribe
 
-Subscribe:
+* Receiver: `place`
+* Type: `request`
+* Request body for subscribe:
 
 ```
 [
@@ -102,7 +113,7 @@ Subscribe:
 ]
 ```
 
-Response:
+* Response:
 
 ```
 [
@@ -111,7 +122,7 @@ Response:
 ]
 ```
 
-Unsubscribe:
+* Unsubscribe request body:
 
 ```
 [
@@ -120,7 +131,7 @@ Unsubscribe:
 ]
 ```
 
-Response:
+* Response:
 
 ```
 [
@@ -129,7 +140,7 @@ Response:
 ]
 ```
 
-Example:
+* Example:
 
 ```
   [
@@ -158,6 +169,61 @@ to the subscribing agent.
 
 ## Modify ACL
 
-## Entity points
+## Entity points at another entity
+
+An entity, most likely the avatar of a user, is pointing with their
+finger at another entity. This is used as a precursor to actually
+interacting with it ("poking it").
+
+The interaction describes two points in world space: the tip of
+the finger, and the intersection point between the ray from the
+finger and the nearest entity, so that the entity can know _where_
+on itself someone is pointing.
+
+* Receiver: The pointed-at entity
+* Type: `one-way`
+* Body:
+
+```
+[
+  "point",
+  [1.0, 2.0, 3.0], // finger tip in world space coordinates
+  [4.0, 5.0, 6.0], // intersection point in world space coordinates
+]
+```
 
 ## Entity pokes
+
+Once an entity is pointing at another entity, it can ask to "physically"
+interact with it, by turning the pointing into a poke.
+
+* Receiver: The pointed-at entity
+* Type: `request`
+* Request body:
+
+```
+[
+  "poke",
+  [1.0, 2.0, 3.0], // finger tip in world space coordinates
+  [4.0, 5.0, 6.0], // intersection point in world space coordinates
+]
+```
+
+* Success response: 
+
+```
+[
+  "poke",
+  "ok"
+]
+```
+
+* Failure response:
+
+```
+[
+  "poke",
+  "failed",
+  "{string explaining why, presentable to user}"
+]
+```
