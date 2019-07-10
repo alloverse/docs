@@ -36,8 +36,9 @@ announce will lead to force disconnect.
 
 ```
 [
-  "announce"
-  "{ID of avatar entity}"
+  "announce",
+  "{ID of avatar entity}",
+  "{name of place}"
 ]
 ```
 
