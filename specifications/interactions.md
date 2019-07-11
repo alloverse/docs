@@ -196,7 +196,12 @@ on itself someone is pointing.
 ## Entity pokes
 
 Once an entity is pointing at another entity, it can ask to "physically"
-interact with it, by turning the pointing into a poke.
+interact with it, by turning the pointing into a poke. The poke doesn't
+contain vector information -- it's up to the receiver to correlate with
+pointing events, as those will be streaming a continuously updating
+location, while poking is a request-response which the receiver
+can reject. Such a rejection should be visualized, so that the
+sender's user can understand if and why poking failed.
 
 * Receiver: The pointed-at entity
 * Type: `request`
@@ -205,8 +210,7 @@ interact with it, by turning the pointing into a poke.
 ```
 [
   "poke",
-  [1.0, 2.0, 3.0], // finger tip in world space coordinates
-  [4.0, 5.0, 6.0], // intersection point in world space coordinates
+  {true|false} // whether poking started (true) or stopped (false)
 ]
 ```
 
