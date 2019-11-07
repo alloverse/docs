@@ -113,6 +113,13 @@ Sent from agent to place over unreliable channel every heartbeat.
             "xmovement": 0, // 1 = maximum speed strafe right
             "yaw": 0, // absolute rotation around x in radians
             "pitch": 0 // absolute rotation around y in radians
+            "poses": {
+                "head": {
+                    "position": [0, 0, 0], // relative to avatar center
+                    "rotation": [0, 0, 0]  // euler angles around x, y, z for the device
+                },
+                "hand/left": {same as head},
+                "hand/right": {same as head}
         },
         "{id of other owned entity}": {
             // same as above
