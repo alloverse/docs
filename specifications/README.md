@@ -120,6 +120,7 @@ Sent from agent to place over unreliable channel every heartbeat.
                 },
                 "hand/left": {same as head},
                 "hand/right": {same as head}
+            }
         },
         "{id of other owned entity}": {
             // same as above
