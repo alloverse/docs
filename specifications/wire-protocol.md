@@ -31,7 +31,15 @@ Version 0 implements this packet as:
     "zmovement": 0,
     "xmovement": 0,
     "yaw": 0,
-    "pitch": 0
+    "pitch": 0,
+    "poses": {
+      "head": {
+          "position": [0, 0, 0], // relative to avatar center
+          "rotation": [0, 0, 0]  // euler angles around x, y, z for the device
+      },
+      "hand/left": {same as head},
+      "hand/right": {same as head}
+    }
   }
 }
 ```
