@@ -115,8 +115,8 @@ Sent from agent to place over unreliable channel every heartbeat.
             "pitch": 0 // absolute rotation around y in radians
             "poses": {
                 "head": {
-                    "position": [0, 0, 0], // relative to avatar center
-                    "rotation": [0, 0, 0]  // euler angles around x, y, z for the device
+                    "position": {"x": 0, "y": 0, "z": 0}, // relative to avatar center
+                    "rotation": {"x": 0, "y": 0, "z": 0}  // euler angles around x, y, z for the device
                 },
                 "hand/left": {same as head},
                 "hand/right": {same as head}
