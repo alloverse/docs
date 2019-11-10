@@ -8,12 +8,18 @@ components official by opening an issue on this repo.
 
 ## `transform`
 
-Defines the physical location of the entity.
+Defines the physical location and orientation of the entity.
+
+Position is defined as meters from origin, where positive x is to the right, positive y is up, and negative z is forward.
+
+Rotation is defined as euler angles (radians rotated around x, y and z axis).
+
+_note_: This is a bad representation, and will be replaced either with position+quaternion, or a 3x3 transformation matrix.
 
 ```
 "transform": {
-  "position":	[0, 0, 0],
-  "rotation":	[0, 0, 0]
+  "position":	{"x": 0, "y": 0, "z": 0},
+  "rotation":	{"x": 0, "y": 0, "z": 0}
 }
 ```
 
