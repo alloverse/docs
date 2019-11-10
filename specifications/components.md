@@ -56,4 +56,23 @@ This is only recommended for debugging, and until we have geometry assets.
 
 **If type is `asset`**, well... you're living in the future.
 
+## `relationships`
 
+Specify the relationships between entities, in particular child entites' "parent" entity. If an entity has a parent, its transform should be concatenated with all its ancestors' transforms before being displayed.
+
+
+```
+"relationships": {
+  "parent": "abc123"
+}
+```
+
+## `poses`
+
+Specify how an entity's transform should be set from its owning client's intent.
+
+```
+"poses": {
+  "inherit": "hand/left"
+}
+```
