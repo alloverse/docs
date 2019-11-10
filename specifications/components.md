@@ -67,12 +67,13 @@ Specify the relationships between entities, in particular child entites' "parent
 }
 ```
 
-## `poses`
+## `intent`
 
-Specify how an entity's transform should be set from its owning client's intent.
+Specify how the entity's owning agent's intent affects this entity.
 
+* `actuate_pose`: this named pose will be set as this entity's transform each frame.
 ```
-"poses": {
-  "inherit": "hand/left"
+"intent": {
+  "actuate_pose": "hand/left"
 }
 ```
