@@ -8,20 +8,17 @@ components official by opening an issue on this repo.
 
 ## `transform`
 
-Defines the physical location and orientation of the entity.
-
-Position is defined as meters from origin, where positive x is to the right, positive y is up, and negative z is forward.
-
-Rotation is defined as euler angles (radians rotated around x, y and z axis).
-
-_note_: This is a bad representation, and will be replaced either with position+quaternion, or a 3x3 transformation matrix.
+Defines the physical location and orientation of the entity. [See coordinate-system.md](coordinate-system.md)
+for an extended description of how things are positioned and oriented in Alloverse.
 
 ```
 "transform": {
-  "position":	{"x": 0, "y": 0, "z": 0},
-  "rotation":	{"x": 0, "y": 0, "z": 0}
+  "matrix": [1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0, 0.0,0.0,0.0,1.0]
 }
 ```
+
+_note: In an early version of the protocol, transform was represented as a 3-element position vector
+and 3-element rotation vector with euler angle rotations._
 
 ## `geometry`
 
