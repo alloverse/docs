@@ -115,8 +115,8 @@ Sent from agent to place over unreliable channel every heartbeat.
             "pitch": 0 // absolute rotation around y in radians
             "poses": {
                 "head": {
-                    "position": {"x": 0, "y": 0, "z": 0}, // relative to avatar center
-                    "rotation": {"x": 0, "y": 0, "z": 0}  // euler angles around x, y, z for the device
+                    // position relative to avatar floor
+                    "matrix": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
                 },
                 "hand/left": {same as head},
                 "hand/right": {same as head}
@@ -130,6 +130,8 @@ Sent from agent to place over unreliable channel every heartbeat.
                             // we're acknowledging
 }
 ```
+
+For the format of the matrix in `poses.*.matrix`, [see coordinate-system.md](coordinate-system.md).
 
 
 ## Entity to entity interaction (request/response/pubsub)
