@@ -34,8 +34,7 @@ Version 0 implements this packet as:
     "pitch": 0,
     "poses": {
       "head": {
-          "position": {"x": 0, "y": 0, "z": 0}, // relative to avatar center
-          "rotation": {"x": 0, "y": 0, "z": 0}  // euler angles around x, y, z for the device
+        "matrix": [1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0, 0.0,0.0,0.0,1.0]
       },
       "hand/left": {same as head},
       "hand/right": {same as head}
