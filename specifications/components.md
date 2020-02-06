@@ -59,6 +59,19 @@ This is only recommended for debugging, and until we have geometry assets.
 
 **If type is `asset`**, well... you're living in the future.
 
+## `collider`
+
+Defines the physical shape of an entity.
+
+```
+"collider": {
+  "type": "box",
+  "width": 1,
+  "height": 1,
+  "depth": 1
+}
+```
+
 ## `relationships`
 
 Specify the relationships between entities, in particular child entites' "parent" entity. If an entity has a parent, its transform should be concatenated with all its ancestors' transforms before being displayed.
