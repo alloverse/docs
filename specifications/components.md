@@ -8,8 +8,10 @@ components official by opening an issue on this repo.
 
 ## `transform`
 
-Defines the physical location and orientation of the entity. [See coordinate-system.md](coordinate-system.md)
-for an extended description of how things are positioned and oriented in Alloverse.
+Defines the physical location and orientation of the entity relative to its parent
+entity if it has one; otherwise relative to the world origo.
+[See coordinate-system.md](coordinate-system.md) for an extended description of how
+things are positioned and oriented in Alloverse.
 
 ```
 "transform": {
