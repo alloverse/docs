@@ -27,7 +27,7 @@ announce will lead to force disconnect.
   },
   "spawn_avatar",
   {
-    // list of initial values for components for avatar entity goes here
+    // same as "spawn_entity" key in "Agent requests to spawn entity"
   }
 ]
 ```
@@ -52,7 +52,17 @@ announce will lead to force disconnect.
 [
   "spawn_entity",
   {
-    // list of initial values for components for avatar entity goes here
+    // list of initial values for components for new entity goes here
+    
+    "children": [
+      // list of new child entities to create; same body as for "spawn_entity".
+      // These will automatically get a "relationships" component set up referencing
+      // the parent entity.
+      { 
+        // list of initial values for components for child of new entity goes here
+      },
+      ...
+    ]
   }
 ]
 ```
