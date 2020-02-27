@@ -242,3 +242,46 @@ sender's user can understand if and why poking failed.
   "{string explaining why, presentable to user}"
 ]
 ```
+
+## Entity wishes to transmit live media
+
+Before an entity can transmit streamed audio, video or geometry, a track must be created
+along which to send that data.
+
+Only audio, and only mono opus, is supported right now.
+
+
+* Receiver: `place`
+* Type: `request`
+* Request body:
+
+```
+[
+  "allocate_track",
+  "audio", # media type
+  48000, # sample rate
+  1, # channel count
+  "opus" # media format
+]
+```
+
+* Success response: 
+
+```
+[
+  "allocate_track",
+  "ok",
+  3 # track_id
+]
+```
+
+* Failure response:
+
+```
+[
+  "allocate_track",
+  "failed",
+  "{string explaining why, presentable to user}"
+]
+```
+
