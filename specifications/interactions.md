@@ -246,10 +246,11 @@ sender's user can understand if and why poking failed.
 ## Entity wishes to transmit live media
 
 Before an entity can transmit streamed audio, video or geometry, a track must be created
-along which to send that data.
+along which to send that data. This interaction will add a 
+[live_media](https://github.com/alloverse/docs/blob/master/specifications/components.md#live_media)
+component to the sender's entity.
 
 Only audio, and only mono opus, is supported right now.
-
 
 * Receiver: `place`
 * Type: `request`

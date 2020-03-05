@@ -79,11 +79,23 @@ Version 0 implements this packet as:
 <<JSON-payload>>\n
 ```
 
-Version 0 does not implement this packet.
+## C->S->C Media track packet
+
+
+* Channel: 3 ("CHANNEL_MEDIA")
+* Kind: Unreliable
+* Related interaction: [allocate_track](https://github.com/alloverse/docs/blob/master/specifications/interactions.md#entity_wishes_to_transmit_live_media)
+
+
+```
+<<track-id as 32bit big endian integer>><<raw media payload>>\n
+```
+
+Yeah that's right. Even audio packets have
+that stupid newline at the end.
 
 ## Unspecified
 
 * C->S asset request/response
 * S->C asset request/response
 * S->C asset force delivery
-* Audio/video

@@ -95,3 +95,31 @@ Specify how the entity's owning agent's intent affects this entity.
   "actuate_pose": "hand/left"
 }
 ```
+
+## `live-media`
+
+The entity that holds a `live-media` component for a specific track
+is the entity that "plays" that track; e g for audio, audio will be played
+from the location of that entity.
+
+Please do not try to create live-media components manually. They must be
+allocated server-side so that the server can allocate a track stream in
+the network protocol. Instead, send
+[allocate_track](https://github.com/alloverse/docs/blob/master/specifications/interactions.md#entity_wishes_to_transmit_live_media)
+to `place` to add a `live-media` component to your entity.
+
+
+* `track_id`: `CHANNEL_MEDIA` track number that corresponds to what this
+  entity should play back
+* `sample_rate`: For audio: playback sample rate, as sent in `allocate_track`
+* `channel_count`: For audio: only 1 mono channel supported
+* `format`: Only "opus" audio supported
+
+```
+"live_media": {
+  "track_id": 0, // filled in by server
+  "sample_rate": 48000, // 
+  "channel_count": 1,
+  "format": "opus"
+}
+```
