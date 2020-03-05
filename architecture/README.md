@@ -33,29 +33,27 @@ Streams:
   intents and absolute orientation requests; details on controller position,
   orientation and state; and an ack of the last successfully received state.
 * Interactions are JSON lists, with a sender entity and receiver entity.
-* Media streams are undefined now, but will allow texture sharing (for screen
-  sharing and advanced 2d applications) and voice chat.
+* Asset distribution
+* Media streams are unreliable data streams, e g audio (for voice chat), video/textures (screen sharing etc) and geometry (for advanced appliance representations).
 
-The plan is to use WebRTC as the base transport for free TLS, ICE,
-audio/texture sharing, and data channels with both reliable and unreliable
-transport. However, since there is no good open source implementation,
-allonet is currently using `enet` to provide unreliable and reliable network
-channels, and thus audio/video features are postponed.
+Allonet multiplexes these over UDP using `enet`. The plan is to wrap this in TLS. 
+
+An alternative plan has been to use WebRTC as the transport for free TLS, ICE, udp punch-through, etc. We might still do that in the future, if a nice open source library appears.
 
 ## Entities and the place state
 
-Right now, entities have an id, position and orientation. The idea is to 
-[make them component-based](https://github.com/alloverse/allonet/issues/4),
-and then [document known components in this repo](../specifications), but allow
-appliances and visors to invent their own components and interactions.
+Entities are things in the world, represented in a scene graph. An entity has only an "id" and a list of components. There is a [list of specifications for official components](../specifications/components.md). Apps may invent additional components without them having to be part of the standard.
 
 ## Interactions and access control
 
 Interactions are the way entities can communicate, including how the visor
-talks to the place itself (by sending to entity id "place").
+talks to the place itself (by sending to entity id `place`).
 It's a json list for now, and the idea is for it to be a pub-sub
 request-response protocol vaguley inspired by [Peter J Robinson et al's
 Pedro protocol](http://www.doc.ic.ac.uk/~klc/pedro.pdf).
+
+The documentation has a [list of specifications for official interactions](../specifications/interactions.md),
+but again, apps and visors can invent their own beyond the specification.
 
 The alloplace server becomes the Pedro gateway, and can thus manage access control lists,
 defined as guard expressions on the expression itself, the sender and the receiver.
@@ -78,7 +76,8 @@ bullet list above makes it seem...
 
 ### Alloplace
 
-The alloplace server holds all the state and takes care of all the logic. It is the webrtc hub (eventually) and RPC comms hub. It
+The alloplace server holds all the state and takes care of all the logic. It is 
+the world state, RPC and media transit hub.
 
 * runs a game loop, with physics simulation, intent interpretation, etc.
 * pulses diffs to any actors that want it (primarily visors),
@@ -91,18 +90,18 @@ The alloplace server holds all the state and takes care of all the logic. It is 
 ### Visor
 
 I'd love to support different visors: VR, AR desktop 3D and touch. For now,
-the focus is on the VR visor in Unity.
+the focus is on the VR visor in Lovr.
 
 `alloplace://(enet endpoint)...` URLs can be opened to make a visor
 open a place ([when that's implemented](https://github.com/alloverse/allovisor/issues/1)).
-
-When webrtc is implemented, that enet endpoint should be replaced with a https
-endpoint that takes a `POST` of the SDP for an `OFFER`, and responds with the `ANSWER`.
 
 A visor should provide some sort of client identity. The idea for now is for
 each client to provide a public certificate with a name bound to it, so you
 can at least know when the same client appears again. Would love an architecture
 idea for a distributed identity plan (web of trust?).
+
+If we end up going with webrtc, the enet endpoint should be replaced with a https
+endpoint that takes a `POST` of the SDP for an `OFFER`, and responds with the `ANSWER`.
 
 ### Appliances
 
