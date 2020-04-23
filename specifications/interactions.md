@@ -203,6 +203,16 @@ on itself someone is pointing.
 ]
 ```
 
+If the ray cast from the user's finger veers off the last pointed-at
+entity, one last message is sent to indicate that the user has stopped
+pointing at it. This is useful for removing highlight effect, etc.
+
+```
+[
+  "point-exit"
+]
+```
+
 ## Entity pokes
 
 Once an entity is pointing at another entity, it can ask to "physically"
