@@ -58,37 +58,59 @@ to do so, whereafter it can remove the asset from memory.
 
 ## Wire protocol
 
-### C>S Request asset
+On the wire, messages are:
 
-#### Request
+1. `mid`, a 16-bit unsigned big-endian integer message type code.
+2. `hlen`, a 16-bit unsigned big-endian integer header length value.
+4. `header`, a utf8 json body of `hlen` bytes.
+5. `message`, a raw bytestream of `mlen` bytes, only in some messages.
+
+### C>S>C Asset request
+
+A request is sent from an agent to the place, which may then continue sending it to another agent.
+
 ```
-{
+<<mid:1>><<hlen>>{
   "id": "<<asset id>>",
   "published_by": "<<entity id>>" // optional
 }
 ```
 
 * `id` is the ID of the asset
-* `published_by` (__optional__) is the entity ID whose owner is likely to own the asset. 
+* `published_by` is the entity ID whose owner is likely to own the asset. This
+  is an optional field and only used as a hint.
   Placeserv should ask this agent first, before asking other agents.
 
-#### Success response
+### C>S>C Asset response, success header
 
 ```
-{
+<<mid:2>><<hlen>>{
   "id": "<<asset id>>",
   "cache_until": <<server time as epoch since 1970>>,
+  "chunk_count": <<total number of chunks in response>>",
+  "chunk_length": <<total number of bytes in each chunk>>",
   "cache_options": ["nocache"], // optional
-  "length": <<byte length>>,
-}\n\n
-<<'byte length' bytes of raw asset>>
-```
-
-#### Failure response
-
-```
-{
-  "id": "<<asset id>>"
-  "error_reason": "<<user-readable unavailability reason>>"
+  "total_length": <<total byte length of response>>,
 }
 ```
+
+
+### C>S>C Asset response, success chunk
+
+```
+<<mid:3>><<hlen>>{
+  "id": "<<asset id>>",
+  "chunk_id": <<which chunk in series this is, 0-indexed>>,
+}\n<<raw data>>
+```
+
+#### C>S>C Asset response, failure header
+
+```
+<<mid:4>><<hlen>>{
+  "id": "<<asset id>>",
+  "error_reason": "<<user-readable unavailability reason>>",
+  "error_code": "<<computer-reladable error code for this error>>",
+}<<mlen bytes of raw data>>
+```
+
