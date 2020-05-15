@@ -130,7 +130,7 @@ finally storing it in its cache and forwarding it to the application layer.
 <<mid:3>><<hlen>>{
   "id": "<<asset id>>",
   "chunk_id": <<which chunk in series this is, 0-indexed>>,
-}\n<<raw data>>
+}<<raw data>>
 ```
 
 ### C>S>C Recv acknowledgement
@@ -145,7 +145,7 @@ receiving side, since the transport is UDP, not TCP.
 <<mid:4>><<hlen>>{
   "id": "<<asset id>>",
   "chunk_id": <<which chunk in series we are acknowledging, 0-indexed>>,
-}\n<<raw data>>
+}
 ```
 
 ### C>S>C Asset response, failure header
@@ -158,6 +158,6 @@ request (e g it doesn't have the asset).
   "id": "<<asset id>>",
   "error_reason": "<<user-readable unavailability reason>>",
   "error_code": "<<computer-reladable error code for this error>>",
-}<<mlen bytes of raw data>>
+}
 ```
 
