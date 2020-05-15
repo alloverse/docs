@@ -40,6 +40,9 @@ other agents to see if they have it).
 In addition, if an agent has an asset that it thinks is very likely to be needed soon, it
 MAY push that asset immediately to the placeserv to be stored in the cache.
 
+Once an asset is received, it MUST be checked against the hash in its identifier to verify
+its integrity, and discard it if the hash does not match.
+
 ## Caching
 
 When an agent publishes an asset, it MUST also include an expiration date in server time.
@@ -63,11 +66,18 @@ On the wire, messages are:
 1. `mid`, a 16-bit unsigned big-endian integer message type code.
 2. `hlen`, a 16-bit unsigned big-endian integer header length value.
 4. `header`, a utf8 json body of `hlen` bytes.
-5. `message`, a raw bytestream of `mlen` bytes, only in some messages.
+5. `message`, a raw bytestream of bytes, directly appended after `hlen` bytes
+   of json and until the end of the packet.
 
 ### C>S>C Asset request
 
-A request is sent from an agent to the place, which may then continue sending it to another agent.
+Ask for an asset. The message can be:
+
+* agent to placeserv: Ask the place for an asset, in which case it will either
+  respond with it from cache; or ask other agents for the asset and then forward
+  it on.
+* placeserv to agent: Placeserv has been asked by another agent for an asset, and
+  is now forwarding that request.
 
 ```
 <<mid:1>><<hlen>>{
@@ -81,7 +91,11 @@ A request is sent from an agent to the place, which may then continue sending it
   is an optional field and only used as a hint.
   Placeserv should ask this agent first, before asking other agents.
 
-### C>S>C Asset response, success header
+### C>S>C Asset response, transmission header
+
+If the receiver has the asset requested, it may respond affirmative with the
+metadata of the asset in a "transmission header" packet. It will then commence sending
+"transmission chunks".
 
 ```
 <<mid:2>><<hlen>>{
@@ -95,7 +109,19 @@ A request is sent from an agent to the place, which may then continue sending it
 ```
 
 
-### C>S>C Asset response, success chunk
+### C>S>C Asset response, transmission chunk
+
+Once the success header is sent, the client should commence sending success
+chunks, dividing the asset into `chunk_count` number of chunks of
+`chunk_length` bytes (or shorter, in case of the last chunk). The length
+of `<<raw data>>` is implicit by the length of the packet itself (framed by enet).
+
+The sender should be careful to not send too many of these at once,
+but waiting for recv acknowledgement before continuing.
+
+Once we have sent chunk `chunk_count - 1`, this implies the full asset is sent,
+and the receiver should start confirming the hash of the asset before
+finally storing it in its cache and forwarding it to the application layer.
 
 ```
 <<mid:3>><<hlen>>{
@@ -104,10 +130,28 @@ A request is sent from an agent to the place, which may then continue sending it
 }\n<<raw data>>
 ```
 
-#### C>S>C Asset response, failure header
+### C>S>C Recv acknowledgement
+
+Sent by the receiving party to acknowledge receiving a specific chunk. Since
+the asset channel is reliable and ordered, we know that the data is intact and
+that every chunk before that chunk must have been received successfully too.
+The purpose of this message is to rate limit sending as to not overload the
+receiving side, since the transport is UDP, not TCP.
 
 ```
 <<mid:4>><<hlen>>{
+  "id": "<<asset id>>",
+  "chunk_id": <<which chunk in series we are acknowledging, 0-indexed>>,
+}\n<<raw data>>
+```
+
+### C>S>C Asset response, failure header
+
+Sent in place of `mid:3` in case the receiver is unable to satisfy the
+request (e g it doesn't have the asset).
+
+```
+<<mid:5>><<hlen>>{
   "id": "<<asset id>>",
   "error_reason": "<<user-readable unavailability reason>>",
   "error_code": "<<computer-reladable error code for this error>>",
