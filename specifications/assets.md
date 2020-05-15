@@ -97,6 +97,9 @@ If the receiver has the asset requested, it may respond affirmative with the
 metadata of the asset in a "transmission header" packet. It will then commence sending
 "transmission chunks".
 
+An agent can start sending this to a placeserv (or placeserv to an agent) unprompted
+in case it wishes to warm up the receiver's cache.
+
 ```
 <<mid:2>><<hlen>>{
   "id": "<<asset id>>",
