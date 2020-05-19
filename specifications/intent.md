@@ -17,7 +17,13 @@ Format of the packet on-wire today:
     "pitch": 0, // absolute rotation around y in radians
     "poses": {
       "head": {
-        "matrix": [1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0, 0.0,0.0,0.0,1.0]
+        "matrix": [1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0, 0.0,0.0,0.0,1.0],
+        "grab": { // nil or description of grab
+          //entity id of entity being grabbed
+          "entity": "asdf", 
+          // coordinate in entity's local system where held
+          "held_at": [x, y, z]
+        }
       },
       "hand/left": {same as head},
       "hand/right": {same as head}

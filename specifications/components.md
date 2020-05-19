@@ -96,6 +96,38 @@ Specify how the entity's owning agent's intent affects this entity.
 }
 ```
 
+## `grabbable`
+
+Describes how an entity maybe grabbed/held, and then
+moved/dragged by a user.
+
+The actual grabbing is accomplished using intents.
+See the field `grab` under [intent](intent.md).
+
+```
+"grabbable": {
+  "actuate_on": "...",
+
+  // possible future properties:
+  "constrain_axes": ["x", "y", "z"],
+  "constrain_rotation": ["x", "y", "z"],
+}
+```
+
+* **`actuate_on`**: Since the `grabbable` component is likely attached
+  to a a handle rather than the entire object being movable,
+  actuate_on indicates how far up this entity's ancestry to walk before deciding which entity to actually move.
+    * Omitting this key indicates the entity itself should be 
+      moved within its local coordinate space.
+    * Literal `$parent` means move the parent entity
+    * Any entity ID must be an ancestor of this entity, and
+      indicates exactly which entity to move.
+* **`constraint_axes`**: Only allow movement in the indicated
+  axes. E g, `["x", "z"]` means you can't lift it, only move
+  along the floor.
+* **`constrain_rotation`**: Only allow rotation in the indicated
+  axes. E g `[]` means it can't be rotated, only moved.
+
 ## `live-media`
 
 The entity that holds a `live-media` component for a specific track
