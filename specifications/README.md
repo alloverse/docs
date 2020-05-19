@@ -86,6 +86,8 @@ it's relevant.
 The blob is also used to send housekeeping information
 such as acknowledging receipt of state diffs.
 
+See [intent.md](intent.md).
+
 ## Interaction
 
 An on-demand message either announcing information, or
@@ -103,35 +105,9 @@ not be able to interpret them).
 
 ## Entity intent
 
-Sent from agent to place over unreliable channel every heartbeat.
+Agent to place per-frame message. 
 
-```
-{
-    "intents": {
-        "{entity id of avatar}": {
-            "zmovement": 1, // 1 = maximum speed forwards
-            "xmovement": 0, // 1 = maximum speed strafe right
-            "yaw": 0, // absolute rotation around x in radians
-            "pitch": 0 // absolute rotation around y in radians
-            "poses": {
-                "head": {
-                    // position relative to avatar floor
-                    "matrix": [1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1],
-                },
-                "hand/left": {same as head},
-                "hand/right": {same as head}
-            }
-        },
-        "{id of other owned entity}": {
-            // same as above
-        }
-    },
-    "ack-state-rev": 73892  // sequence number of state diff
-                            // we're acknowledging
-}
-```
-
-For the format of the matrix in `poses.*.matrix`, [see coordinate-system.md](coordinate-system.md).
+See [intent.md](intent.md).
 
 
 ## Entity to entity interaction (request/response/pubsub)
@@ -243,7 +219,7 @@ rule, the following message is sent in response:
 
 ## Place to agent state update
 
-Sent every heart-beat on the unreliable channel to let agents
+Sent every heart-beat on the unreliable channel 0 to let agents
 know what the world looks like. In v1, the full place state
 is sent every heartbeat.
 In v2, a diff from the previously acknowledged state will be sent.

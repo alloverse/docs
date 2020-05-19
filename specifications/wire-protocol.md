@@ -22,28 +22,7 @@ What are the actual bytes travelling on the wire? They all seem to be json paylo
 <<JSON-payload>>\n
 ```
 
-Version 0 implements this packet as:
-
-```
-{
-  "cmd": "intent",
-  "intent": {
-    "zmovement": 0,
-    "xmovement": 0,
-    "yaw": 0,
-    "pitch": 0,
-    "poses": {
-      "head": {
-        "matrix": [1.0,0.0,0.0,0.0, 0.0,1.0,0.0,0.0, 0.0,0.0,1.0,0.0, 0.0,0.0,0.0,1.0]
-      },
-      "hand/left": {same as head},
-      "hand/right": {same as head}
-    }
-  }
-}
-```
-
-To make matters worse, it sends it on _channel 1_, as a _reliable_ message. WTF.
+See [intent.md](intent.md) for JSON payload.
 
 ## S->C Interaction
 
