@@ -122,7 +122,7 @@ See the field `grab` under [intent](intent.md).
     * Literal `$parent` means move the parent entity
     * Any entity ID must be an ancestor of this entity, and
       indicates exactly which entity to move.
-* **`constraint_axes`**: Only allow movement in the indicated
+* **`constrain_axes`**: Only allow movement in the indicated
   axes. E g, `["x", "z"]` means you can't lift it, only move
   along the floor.
 * **`constrain_rotation`**: Only allow rotation in the indicated
