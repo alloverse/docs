@@ -21,8 +21,8 @@ Format of the packet on-wire today:
         "grab": { // nil or description of grab
           //entity id of entity being grabbed
           "entity": "asdf", 
-          // coordinate in entity's local system where held
-          "held_at": [x, y, z]
+          // to keep hand-to-entity spatial relationship constant during grab
+          "grabber_from_entity_transform": [m11, m12, ...m44]
         }
       },
       "hand/left": {same as head},
