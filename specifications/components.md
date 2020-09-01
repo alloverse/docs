@@ -122,11 +122,11 @@ See the field `grab` under [intent](intent.md).
     * Any entity ID must be an ancestor of this entity, and
       indicates exactly which entity to move.
 * **`translation_constraint`**: Only allow the indicated fraction of movement in
-  the corresponding axis in the grabbed entity's local coordinate space. E g, to only
+  the corresponding axis in the actuated entity's local coordinate space. E g, to only
   allow movement along the floor (no lifting), set the y fraction 
   to 0: `"translation_constraint": [1, 0, 1]".
 * **`rotation_constraint`**: Similarly, constrain rotation to the given fraction
-  in the given euler axis in the entity's local coordinate space. E g, to only allow
+  in the given euler axis in the actuated entity's local coordinate space. E g, to only allow
   rotation along Y (so that it always stays up-right),
   use: `"rotation_constraint": [0, 1, 0]`.
 
