@@ -108,9 +108,8 @@ See the field `grab` under [intent](intent.md).
 "grabbable": {
   "actuate_on": "...",
 
-  // possible future properties:
-  "constrain_axes": ["x", "y", "z"],
-  "constrain_rotation": ["x", "y", "z"],
+  "translation_constraint": [1, 1, 1],
+  "rotation_constraint": [1, 1, 1],
 }
 ```
 
@@ -122,11 +121,14 @@ See the field `grab` under [intent](intent.md).
     * Literal `$parent` means move the parent entity
     * Any entity ID must be an ancestor of this entity, and
       indicates exactly which entity to move.
-* **`constrain_axes`**: Only allow movement in the indicated
-  axes. E g, `["x", "z"]` means you can't lift it, only move
-  along the floor.
-* **`constrain_rotation`**: Only allow rotation in the indicated
-  axes. E g `[]` means it can't be rotated, only moved.
+* **`translation_constraint`**: Only allow the indicated fraction of movement in
+  the corresponding axis in the grabbed entity's local coordinate space. E g, to only
+  allow movement along the floor (no lifting), set the y fraction 
+  to 0: `"translation_constraint": [1, 0, 1]".
+* **`rotation_constraint`**: Similarly, constrain rotation to the given fraction
+  in the given euler axis in the entity's local coordinate space. E g, to only allow
+  rotation along Y (so that it always stays up-right),
+  use: `"rotation_constraint": [0, 1, 0]`.
 
 ## `live-media`
 
