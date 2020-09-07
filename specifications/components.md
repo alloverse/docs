@@ -61,6 +61,23 @@ This is only recommended for debugging, and until we have geometry assets.
 
 **If type is `asset`**, well... you're living in the future.
 
+## `text`
+
+Defines a text renderer for this entity, drawing a text texture at `transform`.
+
+```
+"text": {
+  "string": "hello world",
+  "height": 0.03,
+  "wrap": 0,
+  "halign": "center"
+}
+```
+
+* `height`: The height of the text. 1 unit = 1 meter.
+* `wrap`: The width in meters at which to wrap the text, if at all.
+* `halign`: Horizontal alignment; "center", "left" or "right".
+
 ## `collider`
 
 Defines the physical shape of an entity.
