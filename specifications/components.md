@@ -121,9 +121,11 @@ Specify the relationships between entities, in particular child entites' "parent
 Specify how the entity's owning agent's intent affects this entity.
 
 * `actuate_pose`: this named pose will be set as this entity's transform each frame.
+* `from_avatar` (optional): Instead of following the owning agent's intents, follow the agent who has this entity as its avatar.
 ```
 "intent": {
-  "actuate_pose": "hand/left"
+  "actuate_pose": "hand/left",
+  "from_avatar": "abc123"
 }
 ```
 
