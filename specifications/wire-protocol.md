@@ -6,7 +6,7 @@ What are the actual bytes travelling on the wire? They all seem to be json paylo
 
 * Channel: 0 ("CHANNEL_STATEDIFFS")
 * Kind: Unreliable
-* Payload specification: [specifications.md](https://github.com/alloverse/docs/tree/master/specifications#place-to-agent-state-update)
+* Payload specification: [state.md](state.md)
 
 ```
 <<JSON-payload>>\n
@@ -16,13 +16,11 @@ What are the actual bytes travelling on the wire? They all seem to be json paylo
 
 * Channel: 0 ("CHANNEL_STATEDIFFS")
 * Kind: Unreliable
-* Payload specification: [specifications.md](https://github.com/alloverse/docs/blob/master/specifications/README.md#entity-intent)
+* Payload specification: [intent.md](intent.md)
 
 ```
 <<JSON-payload>>\n
 ```
-
-See [intent.md](intent.md) for JSON payload.
 
 ## S->C Interaction
 
