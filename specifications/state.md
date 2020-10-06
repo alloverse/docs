@@ -29,7 +29,7 @@ The world representation is stored as a big JSON document like so:
 
 Sending this document in its entirety every server heart-beat would be needlessly wasteful,
 so instead only the difference to a previous known-good state is sent. An agent acknowledges
-successful receival of world state by setting `ack-state-rev` in [`intent`](intent.md) to
+successful receival of world state by setting `ack_state_rev` in [`intent`](intent.md) to
 the received world state, whereafter the server will diff against that revision instead.
 Note that it takes time for this ACK to be received, so you might continue to receive
 diffs against an older version; so you need to keep a history of previous states to apply
@@ -72,7 +72,7 @@ JSON Patch.
 
 The patches should be applied and the resulting document stored to history. If
 the referenced `from` revision is not available or history, or if patching fails,
-you should set intent's `ack-state-rev` back to 0 to request a full `set` state.
+you should set intent's `ack_state_rev` back to 0 to request a full `set` state.
 
 ### Format 3: `merge`
 
@@ -94,7 +94,7 @@ JSON Merge Patch.
 
 The merge patch should be applied and the resulting document stored to history. If
 the referenced `from` revision is not available or history, or if patching fails,
-you should set intent's `ack-state-rev` back to 0 to request a full `set` state.
+you should set intent's `ack_state_rev` back to 0 to request a full `set` state.
 
 
 # Older versions
