@@ -74,6 +74,9 @@ The patches should be applied and the resulting document stored to history. If
 the referenced `from` revision is not available or history, or if patching fails,
 you should set intent's `ack_state_rev` back to 0 to request a full `set` state.
 
+**Note**: This format seems to almost always be less efficient than RFC 7386,
+so its support is likely to be removed.
+
 ### Format 3: `merge`
 
 Indicates that the payload is an [RFC 7386](https://tools.ietf.org/html/rfc7396)
