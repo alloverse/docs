@@ -27,12 +27,15 @@ Format of the packet on-wire today:
       },
       "hand/left": {same as head},
       "hand/right": {same as head}
-    }
+    },
+    "ack_state_rev": 1234
   }
 }
 ```
 
 For the format of the matrix in `poses.*.matrix`, [see coordinate-system.md](coordinate-system.md).
+
+To understand `ack_state_rev`, see (state.md)[state.md].
 
 Planned version of the packet:
 
