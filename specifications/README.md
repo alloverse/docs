@@ -220,18 +220,10 @@ rule, the following message is sent in response:
 ## Place to agent state update
 
 Sent every heart-beat on the unreliable channel 0 to let agents
-know what the world looks like. In v1, the full place state
-is sent every heartbeat.
-In v2, a diff from the previously acknowledged state will be sent.
+know what the world looks like. 
 
-```
-  entities: [
-    // list of all entities; see Entities above for structure
-  ],
-  revision: 1234 // monotonically increasing integer (will roll over to 0 after INT64_MAX!)
-```
-
-See [Entity](#entity) for definition of the entries of the `entities` list.
+See [state.md](state.md) for full format and explanation, and
+[Entity](#entity) to understand the things the state contains.
 
 # Official components
 
