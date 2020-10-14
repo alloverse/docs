@@ -10,8 +10,7 @@ The coordinate system in Alloverse has the following properties:
 6. Positive rotation is counterclockwise about the axis of rotation.
 7. Rotations are always represented in radians.
 8. Y=0 is floor level in model space
-9. For the neutral pose of the avatar, it should be facing towards negative Z
-10. For the neutral pose of an app, its default orientation should face towards positive Z, with "right" being positive X and "up" being positive Y.
+9. The neutral pose of all models, avatars, app UIs etc should should face towards positive Z, with "right" being positive X and "up" being positive Y.
 11. For textures, UV 0,0 is bottom-left, with positive U towards the right, and positive V upwards.
 12. The origin of an entity should be in its middle. 
 
