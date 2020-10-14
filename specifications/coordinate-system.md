@@ -15,7 +15,7 @@ The coordinate system in Alloverse has the following properties:
 11. For textures, UV 0,0 is bottom-left, with positive U towards the right, and positive V upwards.
 12. The origin of an entity should be in its middle. 
 
-![Rotation about Y axis is counterclockwise](https://www.evl.uic.edu/ralph/508S98/gif/righty.gif)
+![Rotation about Y axis is counterclockwise](XYZ.png)
 
 ## Representation
 
