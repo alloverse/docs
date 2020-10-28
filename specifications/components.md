@@ -190,3 +190,16 @@ to `place` to add a `live-media` component to your entity.
   "format": "opus"
 }
 ```
+
+## `clock`
+
+Only set on the entity `place`, this component defines the flow of time
+for a place. 
+
+```
+"clock": {
+  "time": 123.0, // in seconds
+}
+```
+
+Its reference time is undefined. It is always seconds as a double.
