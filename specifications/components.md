@@ -203,3 +203,17 @@ for a place.
 ```
 
 Its reference time is undefined. It is always seconds as a double.
+
+## `cursor`
+
+Defines a custom cursor renderer, controlling the appearence of the cursor displayed when pointing at the entity.
+
+```
+"cursor": {
+  "name": "brushCursor",
+  "size": 3,
+}
+```
+
+* `name`: The name of the custom cursor. There's currently only one defined; "brushCursor", which displays a white circle. 
+* `size`: The brushCursor's radius, meant to match the size of the current brush size when interacting with a drawable surface. 1 unit = 1 centimeter. Default: "3".
