@@ -42,7 +42,7 @@ announce will lead to force disconnect.
 ]
 ```
 
-## Agent requests to spawn entity
+## Spawn entity
 
 * Receiver: `place`
 * Type: `request`
@@ -76,8 +76,37 @@ announce will lead to force disconnect.
 ]
 ```
 
+## Remove entity
 
-## Agent requests to change/add/remove component(s) in entity
+
+* Receiver: `place`
+* Type: `request`
+* Request body:
+
+```
+[
+  "remove_entity",
+  "{ID of entity to remove}",
+  "{'reparent' or 'cascade'}"
+]
+```
+
+* Reparent: If the removed entity has children, they will be reparented to root
+* Cascade: If the removed entity has children, they will also be removed.
+
+
+* Response:
+
+```
+[
+  "remove_entity",
+  "ok"
+]
+```
+
+
+
+## Change/add/remove component(s) in entity
 
 * Receiver: `place`
 * Type: `request`
