@@ -45,15 +45,6 @@ its integrity, and discard it if the hash does not match.
 
 ## Caching
 
-When an agent publishes an asset, it MUST also include an expiration date in server time.
-When this date is passed, servers and agents SHOULD purge it from its caches. Agents MUST
-not use expired assets, and servers MUST not forward expired assets.
-
-Placeserv SHOULD keep a per-agent maximum cache size, and a total maximum cache size.
-When cache is nearing full, it may start removing cached assets to free up space.
-
-Agents MAY indicate that an asset is not cacheable.
-
 Placeserv MUST function even completely without a cache. In the case of an asset response
 which doesn't fit on disk, or an asset response which indicates not cacheable, placeserv 
 must stream this asset directly to the requesting agent, keeping just enough of it in RAM 
