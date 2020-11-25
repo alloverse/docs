@@ -82,11 +82,13 @@ Ask for an asset. The message can be:
 ```
 <<mid:1>><<hlen>>{
   "id": "<<asset id>>",
+  "range": [start_byte_offset, number_of_bytes],
   "published_by": "<<entity id>>" // optional
 }
 ```
 
 * `id` is the ID of the asset
+* `range` is the byte range you want. Send `[0, 0]` for a head request.
 * `published_by` is the entity ID whose owner is likely to own the asset. This
   is an optional field and only used as a hint.
   Placeserv should ask this agent first, before asking other agents.
@@ -100,61 +102,26 @@ metadata of the asset in a "transmission header" packet. It will then commence s
 An agent can start sending this to a placeserv (or placeserv to an agent) unprompted
 in case it wishes to warm up the receiver's cache.
 
+Once we receive `start_byte_offset + number_of_bytes == total_length` the full asset has been received.
+The receiver should start confirming the hash of the asset before
+finally storing it in its cache and forwarding it to the application layer.
+
+
 ```
 <<mid:2>><<hlen>>{
   "id": "<<asset id>>",
-  "cache_until": <<server time as epoch since 1970>>,
-  "chunk_count": <<total number of chunks in response>>",
-  "chunk_length": <<total number of bytes in each chunk>>",
-  "cache_options": ["nocache"], // optional
-  "total_length": <<total byte length of response>>,
-}
-```
-
-
-### C>S>C Asset response, transmission chunk
-
-Once the success header is sent, the client should commence sending success
-chunks, dividing the asset into `chunk_count` number of chunks of
-`chunk_length` bytes (or shorter, in case of the last chunk). The length
-of `<<raw data>>` is implicit by the length of the packet itself (framed by enet).
-
-The sender should be careful to not send too many of these at once,
-but waiting for recv acknowledgement before continuing.
-
-Once we have sent chunk `chunk_count - 1`, this implies the full asset is sent,
-and the receiver should start confirming the hash of the asset before
-finally storing it in its cache and forwarding it to the application layer.
-
-```
-<<mid:3>><<hlen>>{
-  "id": "<<asset id>>",
-  "chunk_id": <<which chunk in series this is, 0-indexed>>,
+  "range": [start_byte_offset, number_of_bytes],
+  "total_length": <<total byte length of asset>>,
 }<<raw data>>
-```
-
-### C>S>C Recv acknowledgement
-
-Sent by the receiving party to acknowledge receiving a specific chunk. Since
-the asset channel is reliable and ordered, we know that the data is intact and
-that every chunk before that chunk must have been received successfully too.
-The purpose of this message is to rate limit sending as to not overload the
-receiving side, since the transport is UDP, not TCP.
-
-```
-<<mid:4>><<hlen>>{
-  "id": "<<asset id>>",
-  "chunk_id": <<which chunk in series we are acknowledging, 0-indexed>>,
-}
 ```
 
 ### C>S>C Asset response, failure header
 
-Sent in place of `mid:3` in case the receiver is unable to satisfy the
+Sent in place of `mid:2` in case the receiver is unable to satisfy the
 request (e g it doesn't have the asset).
 
 ```
-<<mid:5>><<hlen>>{
+<<mid:3>><<hlen>>{
   "id": "<<asset id>>",
   "error_reason": "<<user-readable unavailability reason>>",
   "error_code": "<<computer-reladable error code for this error>>",
